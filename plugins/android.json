@@ -1,0 +1,27 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.davidmcg.localstorageApp"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.davidmcg.localstorageApp"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.davidmcg.localstorageApp"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.davidmcg.localstorageApp"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.davidmcg.localstorageApp"
+        }
+    },
+    "dependent_plugins": {}
+}
