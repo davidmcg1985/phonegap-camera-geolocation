@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/davidmcg/development/mobile-apps/phonegap/localstorageApp/platforms/android/CordovaLib/assets"/></dataSet><dataSet config="debug"><source path="/Users/davidmcg/development/mobile-apps/phonegap/localstorageApp/platforms/android/CordovaLib/src/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Users\David\Desktop\development\mobile-apps\phonegap\phonegap-camera-geolocation\platforms\android\CordovaLib\assets"/></dataSet><dataSet config="debug"><source path="C:\Users\David\Desktop\development\mobile-apps\phonegap\phonegap-camera-geolocation\platforms\android\CordovaLib\src\debug\assets"/></dataSet></merger>

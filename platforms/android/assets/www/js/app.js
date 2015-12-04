@@ -1,146 +1,124 @@
-// events
-$(function () {
-	$('[type=submit]').on('click', function (e) {
-		venueList.addVenue(
-			$('#name').val(),
-			$('#address').val(),
-			$('#type').val(),
-			'######',
-			'######'
-		);
-		$('input:text').val(''); // reset form elements of type text after the input data has been stored
-		return false;
-	});
-
-	$('#venues').on('click', '.delete', function (e) {
-		venueList.deleteVenue(parseInt($(this).parent().find('.key').text()));
-		return false;
-	});
+$(document).ready(function() {
 	
-	// DWT - add update event handler to [Update] text, this event handler modelled on delete event handler which also refers to a specific record
-	$('#venues').on('click', '.update', function (e) {
-		// use six classes to address the five pieces of information plus the key
-		var name = $(this).parent().find('.name').text(); 
-		var address = $(this).parent().find('.address').text();
-		var type = $(this).parent().find('.type').text();
-		//var lat = $(this).parent().find('.lat').text();
-		//var lng = $(this).parent().find('.lng').text();
-		var key = parseInt($(this).parent().find('.key').text()); // DWT - key that identifies the record is within the invisble span
-		venueList.updateVenue(name,address,type,key);
-		return false;
-	});
+	$("#takePhoto").click(function() {
 
-	venueList.open(); // open displays the data previously saved
+		navigator.camera.getPicture(onSuccess, onFail, { 
+			quality: 100,
+		    destinationType: Camera.DestinationType.DATA_URL,
+		    allowEdit : true,
+		    saveToPhotoAlbum: true
+		});
+
+		function onSuccess(imageData) {
+		    var image = document.getElementById('myImage');
+		    image.src = "data:image/jpeg;base64," + imageData;
+		}
+
+		function onFail(message) {
+		    alert('Failed because: ' + message);
+		}
+	});
 
 });
 
 
+// bind button and ul
+$(function () {
+	$('[type=submit]').on('click', function (e) {
+		photoList.addPhoto(
+			$('#name').val(),
+			'check location settings',
+			'check location settings'
+		);
+		$('input:text').val('');
+		return false;
+	});
+	$('#photos').on('click', '.delete', function (e) {
+		photoList.deletePhoto(parseInt($(this).parent().find('.key').text()));
+		return false;
+	});
+	photoList.open();
+});
 
-venueList = {}; // addVenue, getAllVenues, deleteVenue, updateVenue - are own methods
+photoList = {}; 
 
-// open/create - method & variable(s) renamed but otherwise no changes
-venueList.open = function() {
-	this.list = { }; // create an empty data structure by default
-	if (localStorage.venueList) {
-		 // do work here - Read from serialized data from persistent storage
-		 this.list = JSON.parse(localStorage.venueList);
+photoList.open = function() {
+	this.list = { }; 
+	if (localStorage.photoList) {
+		 this.list = JSON.parse(localStorage.photoList);
 	} 
-	venueList.getAllVenues(); // Refresh the screen
+	photoList.getAllPhotos();
 };		
 
-
 // add - method renamed and more arguments
-venueList.addVenue = function(name,address,type,lat,lng) {
-	console.log(arguments.callee.name, arguments); // DWT - handy for debugging functions
-	//name="mark";address="high st";type="bar";lat=55;lng=-4;
+photoList.addPhoto = function(name,address,type,lat,lng) {
+	console.log(arguments.callee.name, arguments);
 	key = new Date().getTime();
 	this.list[key] = {
 		'name':name,
-		'address':address,
-		'type':type,
 		'lat':lat,
 		'lng':lng
 		};
-	// stringify the list as before
-	localStorage.venueList = JSON.stringify(this.list);
-	this.getAllVenues(); // Refresh the screen
-	// having stored with dummy position attempt to find position to upadte record wehn position available
+	localStorage.photoList = JSON.stringify(this.list);
+	this.getAllPhotos();
 	if (navigator.geolocation) {
-			var timeoutVal = 55000; // 50 seconds for GPS or other geolocation to work
-			var maximumAgeVal = 60000 // 60 seconds
+			var timeoutVal = 55000; 
+			var maximumAgeVal = 60000;
 			navigator.geolocation.getCurrentPosition(
 				function (position) {updatePosition(position,key)}, 
 				displayError
-				
 			);
 		}
 		else {
 			alert("Geolocation is not supported by this browser or device");
 	}
 };
-// following optional parameters not suitabl for ripple, restore for developer app and fully built app on GPS enabled device
-// { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: maximumAgeVal }
 
-// read each item from list and render on display - no changes required!!!
-venueList.getAllVenues = function() {
-	$('#venues').html('');
+// read each item from list and render on display
+photoList.getAllPhotos = function() {
+	$('#photos').html('');
 	for (var key in this.list) {
-		renderVenue(key, this.list[key]);
+		renderPhoto(key, this.list[key]);
 	}
 };
 
-// delete - no changes required!!!
-venueList.deleteVenue = function(key) { 
-	console.log(arguments.callee.name, arguments); // DWT - handy for debugging functions
-	delete this.list[key];// do work here - delete the element from data structure
-	localStorage.venueList = JSON.stringify(this.list); // do work here - serialize data and refresh (store in) persistent data
-	this.getAllVenues();  // Refresh the screen
+// delete
+photoList.deletePhoto = function(key) { 
+	console.log(arguments.callee.name, arguments);
+	delete this.list[key];
+	localStorage.photoList = JSON.stringify(this.list);
+	this.getAllPhotos(); 
 };
 
 // update - method has more arguments
-venueList.updateVenue = function(name,address,type,key) {
-	console.log(arguments); // DWT - handy for debugging functions
-	//name="mark";address="high st";type="bar";lat=55;lng=-4;
-	this.list[key]['name'] = name;
-	this.list[key]['address'] = address;
-	this.list[key]['type'] = type;
-	/* this.list[key] = {
-		'name':name,
-		'address':address,
-		'type':type,
-		'lat':lat,
-		'lng':lng
-	};	// list item is an object rather than a primitive string */
-	localStorage.venueList = JSON.stringify(this.list); // do work here - Refresh persistent Storage
-	this.getAllVenues();  // no change other than name of method
-};		
-
-// update - method has more arguments
-venueList.updatePosition = function(lat,lng,key) {
-	console.log(arguments); // DWT - handy for debugging functions
+photoList.updatePosition = function(lat,lng,key) {
+	console.log(arguments); 
 	this.list[key]['lat'] = lat;
 	this.list[key]['lng'] = lng;
-	localStorage.venueList = JSON.stringify(this.list); // do work here - Refresh persistent Storage
-	this.getAllVenues();  // no change other than name of method
+	localStorage.photoList = JSON.stringify(this.list); 
+	this.getAllPhotos();  
 };		
 
-
-
-// helper
-function renderVenue(key,value) {
-	// console.log(arguments); // DWT - handy for debugging functions
-	var li = '<li>Name: <span class="name" contenteditable="true">'+value.name+'</span><br/>';
-	li += 'Address: <span class="address" contenteditable="true">'+value.address+'</span><br/>';
-	li += 'Venue Type: <span class="type" contenteditable="true">'+value.type+'</span><br/>';
+// render output to #photos ul
+function renderPhoto(key,value) {
+	var li = '<li>Name: <span class="name">'+value.name+'</span><br/>';
 	li += 'Latitude: <span class="lat">'+value.lat+'</span><br/>';
 	li += 'Longitude: <span class="lng">'+value.lng+'</span><br/>';
-	// must have three editable and five addressable sections sections for five pieces of information
-	li += '<a href="#" class="update">Update</a> &nbsp;'; 
 	li += '<a href="#" class="delete">Delete</a><span class="key">'+key+'</span></li>';
-	$('#venues').append(li);
+	$('#photos').append(li);
 }
 
+// update coords
+function updatePosition(position, key) {
+	console.table(position); // postion Object
+	console.log(position.coords.latitude, position.coords.longitude);
+	console.log(key); // when GPS called and record to be updated
+	console.table(new Date().getTime()); // when GPS returned
+	photoList.updatePosition(position.coords.latitude, position.coords.longitude, key);
+	
+}
 
+// error handling
 function displayError(error) {
 	var errors = { 
 		1: 'Geolocation Permission denied',
@@ -149,13 +127,4 @@ function displayError(error) {
 	};
 	alert("Error: " + errors[error.code]);
 	console.log("Error: " + errors[error.code]);
-}
-
-function updatePosition(position, key) {
-	console.table(position); // postion Object
-	console.log(position.coords.latitude, position.coords.longitude);
-	console.log(key); // when GPS called and record to be updated
-	console.table(new Date().getTime()); // when GPS returned
-	venueList.updatePosition(position.coords.latitude, position.coords.longitude, key);
-	
 }

@@ -21,6 +21,9 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.davidmcg.localstorageApp"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.davidmcg.localstorageApp"
         }
     },
     "dependent_plugins": {}
