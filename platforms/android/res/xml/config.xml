@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.davidmcg.localstorageApp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.davidmcg.pgcamerageolocation" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
@@ -14,10 +14,13 @@
     <feature name="Camera">
         <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
     </feature>
+    <feature name="Compass">
+        <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
+    </feature>
     <allow-intent href="market:*" />
-    <name>localstorageApp</name>
+    <name>Phonegap Camera Geolocation</name>
     <description>
-        Local Storage App
+        Phonegap Camera Geolocation simple application
     </description>
     <author email="david@dmcportfolio.co.uk" href="http://dmcportfolio.co.uk">
         David McGowan

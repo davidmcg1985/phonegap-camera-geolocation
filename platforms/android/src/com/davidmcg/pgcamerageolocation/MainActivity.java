@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.davidmcg.localstorageApp;
+package com.davidmcg.pgcamerageolocation;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

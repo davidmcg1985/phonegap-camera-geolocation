@@ -24,6 +24,9 @@
         },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.davidmcg.localstorageApp"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "com.davidmcg.pgcamerageolocation"
         }
     },
     "dependent_plugins": {}
