@@ -1,17 +1,99 @@
-#photos li span.key { 
+.full {
+    background: url(../img/photography.png) repeat;
+/*    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;*/
+}
+
+#items li span.key { 
     display: none;
-}  
+}
+
+ul {
+	list-style-type: none;
+    margin-left: 0 !important;
+    padding-left: 0;
+    text-align: center;
+}
 
 li {
     line-height: 200%;
-    padding: 20px 0;
-}
-
-.imgContainer {
-    text-align: center;
-    margin: 20px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 10px;
 }
 
 .imgDisplay {
-    width: 80%;
+	width: 100%;
+	display: none;
+}
+
+.ui-corner-all {
+    border-radius: 0 !important;
+}
+
+.ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper {
+    background-color: transparent !important;
+    border-color: #BBB;
+    color: #333;
+    text-shadow: 0 !important;
+}
+
+.delete {
+	margin: 15px auto 0 auto;
+}
+
+p {
+    text-align: center;
+}
+
+.ui-page-theme-a .ui-bar-inherit{
+    background-color: #38C;
+    border-color: #38C;
+    color: #fff;
+    text-shadow: none; 
+    font-weight: 700; 
+}
+
+.ui-page-theme-a .ui-btn {
+    background-color: #38C !important;
+    border-color: #38C !important;
+    color: #fff !important;
+    text-shadow: none !important;    
+}
+
+.ui-page-theme-a .ui-btn.ui-btn-active {
+    background-color: #38C;
+    border-color: #38C;
+    color: #fff;
+    text-shadow: none;
+}
+
+.ui-page-theme-a .ui-btn:focus {
+    box-shadow: none;
+}
+
+#photos .ui-btn {
+    background-color: red;
+    border-color: red;
+    color: #fff;
+    text-shadow: none;
+}
+
+#compass {
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+}
+
+#compass img {
+    width: 100%;
+}
+
+.page-theme-a .ui-focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }

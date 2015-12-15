@@ -1,50 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html class="full">
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-<!--         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *"> -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Phonegap Camera and Geolocation</title>
+        <title>DWT Assessment 2 | B00257735</title>
     </head>
     <body>
         
+        <!-- Main App Page -->
         <div data-role="page">
             <div data-role="header">
-              <h1><i class="ui-btn-icon-notext ui-icon-camera"></i></h1>
+
+                <h1>DWT | B00257735</h1>
+                <a href="#compassPage" data-rel="dialog" data-transiton="pop" class="ui-btn ui-btn-inline ui-icon-navigation ui-btn-icon-left">Compass</a>
+                <a href="#infoPage" data-rel="dialog" data-transiton="pop" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-notext">Info</a>
+
             </div>
             <div data-role="content">
 
-<!--                     <div class="imgContainer">
-                        <img src="" id="myImage" class="imgDisplay"/>
-                    </div> -->
-
-                    <ul id="photos">
-                    </ul>
-
+                    <img src="" id="myImage" class="imgDisplay"/>
                     <input type="text" id="name" name="name" placeholder="Your name..." />
-                    <!-- <button id="takePhoto">Add Photo</button> -->
-                    <input type="submit" value="Submit" />
-
-                    <p id="heading"></p>
+                    <p id="itemHeading"></p>                   
+                    <ul id="items">
+                    </ul>   
 
             </div>
             <div data-role="footer" data-position="fixed">
-              <h3>Phonegap Camera and Geolocation</h3>
+                    <div data-role="navbar">
+                        <ul>
+                            <li>
+                                <a id="submit" class="ui-btn" href="#" data-role="button" data-icon="camera" data-iconpos="top">Take Photo</a>
+                            </li>
+                        </ul>
+                    </div>
             </div>
         </div>
 
+
+        <!--compass page-->
+        <div id="compassPage" data-role="page">
+
+            <div data-role="header" data-rel="back">
+                <h1>Compass</h1>
+                <a href="#" data-rel="back" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left">Back</a>
+            </div>
+
+            <div data-role="content">
+                    <div id="compass">
+                        <img src="img/compass2.png" id="compassImg" />
+                        <br />
+                        <p id="headingInfo">Heading: 0 &deg;</p>
+                    </div>
+            </div>
+
+        </div>
+
+
+        <!--info page-->
+        <div id="infoPage" data-role="page">
+
+            <div data-role="header" data-rel="back">
+                <h1>App Info</h1>
+                <a href="#" data-rel="back" class="ui-btn ui-btn-inline ui-icon-back ui-btn-icon-left">Back</a>
+            </div>
+
+            <div data-role="content">
+                <h3>Dynamic Web Tehnologies<br/>
+                    Assessment Two<br/>
+                    B00257735</h3>
+                <h4>Api's Used:</h4>
+                <ul data-role="listview">
+                    <li>Camera</li>
+                    <li>Local Storage</li>
+                    <li>Geo-location</li>
+                    <li>Compass</li>
+                </ul>
+            </div>
+
+        </div>
+
+
         <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-        <script type="text/javascript" src="js/jQueryRotateCompressed.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/jQueryRotateCompressed.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
 
-        <script src="http://192.168.0.8:8080/target/target-script-min.js#anonymous"></script>
+        <!--<script src="http://192.168.0.8:8080/target/target-script-min.js#anonymous"></script>-->
 
     </body>
 </html>

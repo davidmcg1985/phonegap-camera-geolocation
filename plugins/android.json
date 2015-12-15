@@ -27,6 +27,12 @@
         },
         "cordova-plugin-device-orientation": {
             "PACKAGE_NAME": "com.davidmcg.pgcamerageolocation"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.davidmcg.pgcamerageolocation"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.davidmcg.pgcamerageolocation"
         }
     },
     "dependent_plugins": {}
