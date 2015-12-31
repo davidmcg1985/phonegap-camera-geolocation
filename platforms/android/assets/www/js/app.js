@@ -80,7 +80,7 @@ $(function () {
 	$('#submit').on('click', function (e) {
 
 		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { 
-			quality: 50,
+			quality: 75,
 			destinationType: Camera.DestinationType.DATA_URL,
 			allowEdit: true,
 			saveToPhotoAlbum: true
@@ -97,8 +97,6 @@ $(function () {
 				'',
 				'',
 				$('#headingInfo').html(),
-				'',
-				'',
 				''
 			);
 			$('input:text').val('');
@@ -130,7 +128,7 @@ itemList.open = function() {
 };
 
 // add - method renamed and more arguments
-itemList.addItem = function(photo,name,lat,lng,headingInfo,speed,altitude,timestamp) {
+itemList.addItem = function(photo,name,lat,lng,headingInfo,timestamp) {
 	console.log(arguments.callee.name, arguments);
 	key = new Date().getTime();
 	this.list[key] = {
@@ -139,8 +137,6 @@ itemList.addItem = function(photo,name,lat,lng,headingInfo,speed,altitude,timest
 		'lat':lat,
 		'lng':lng,
 		'headingInfo':headingInfo,
-		'speed':speed,
-		'altitude':altitude,
 		'timestamp':timestamp
 		};
 	localStorage.itemList = JSON.stringify(this.list);
@@ -186,13 +182,10 @@ itemList.deleteItem = function(key) {
 
 
 // update - method has more arguments
-itemList.updatePosition = function(lat,lng,speed,altitude,timestamp,key) {
+itemList.updatePosition = function(lat,lng,timestamp,key) {
 	console.log(arguments); 
 	this.list[key]['lat'] = lat;
 	this.list[key]['lng'] = lng;
-	// this.list[key]['heading'] = heading;
-	this.list[key]['speed'] = speed;
-	this.list[key]['altitude'] = altitude;
 	this.list[key]['timestamp'] = timestamp;
 	localStorage.itemList = JSON.stringify(this.list); 
 	this.getAllItems();  
@@ -216,8 +209,6 @@ function renderItem(key,value,timestamp) {
 	li += '<i class="fa fa-map-marker"></i>&nbsp;<span class="lat">'+value.lat+' (Lat)</span><br/>';
 	li += '<i class="fa fa-map-marker"></i>&nbsp;<span class="lng">'+value.lng+' (Lng)</span><br/>';
 	li += '<i class="fa fa-compass"></i>&nbsp;<span class="heading">'+value.headingInfo+'</span><br/>';
-	li += '<i class="fa fa-tachometer"></i>&nbsp;<span class="speed">'+value.speed+' mps</span><br/>';
-	li += '<i class="fa fa-area-chart"></i>&nbsp;<span class="altitude">'+value.altitude+' metres</span><br/>';
 	li += '<i class="fa fa-calendar"></i>&nbsp;<span class="timestamp">'+ today +'</span><br/>';
 	li += '<a href="#" class="delete ui-btn">Delete</a><span class="key">'+key+'</span></li>';
 	$('#items').prepend(li);
@@ -227,19 +218,19 @@ function renderItem(key,value,timestamp) {
 // update coords
 function updatePosition(position, key) {
 	console.table(position); // postion Object
-	console.log(position.coords.latitude, position.coords.longitude, position.coords.speed, position.coords.altitude, position.timestamp);
+	console.log(position.coords.latitude, position.coords.longitude, position.timestamp);
 	console.log(key); // when GPS called and record to be updated
 	console.table(new Date().getTime()); // when GPS returned
 	console.log(position.timestamp);
-	itemList.updatePosition(position.coords.latitude, position.coords.longitude, position.coords.speed, position.coords.altitude, position.timestamp, key);
+	itemList.updatePosition(position.coords.latitude, position.coords.longitude, position.timestamp, key);
 }
 
 // error handling
 function displayError(error) {
 	var errors = { 
-		1: 'Geolocation Permission denied',
+		1: 'Geolocation permission denied',
 		2: 'Position unavailable',
-		3: 'Geolocation Request timeout'
+		3: 'Geolocation request timeout'
 	};
 	alert("Error: " + errors[error.code]);
 	console.log("Error: " + errors[error.code]);
